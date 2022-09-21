@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup for our newsletter</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header>
+        <h1>THE CODE REVIEW</h1>
+    </header>
+
+    <div class="top">
+        <h2>Signup for our newsletter</h2>
+        <p>Get the latest news on how your code is doing right in your inbox</p>
+    </div>
+
+    <form action="" method="post" accept-charset="utf-8">
+        <fieldset class="contact">
+            <legend>Contact Information</legend>
+            <div class="contact_input">
+                <label for="">Full Name</label>
+                <input type="text" name="Nombre" id="id_name" placeholder="Required"><br>
+            </div>
+            <div class="contact_input">
+                <label for="">Email Adress</label>
+                <input type="email" name="correo" id="id_correo" placeholder="Required"><br>
+            </div>
+            <div class="contact_input">
+                <label for="">Phone Number</label>
+                <input type="tel" name="tlf" id="id_tlf">
+            </div>
+            <div class="contact_input">
+                <label for="">Street Address</label>
+                <input type="text" name="calle" id="id_calle">
+            </div>
+            <div class="contact_input">
+                <label for="">City</label>
+                <input type="text" name="ciudad" id="id_ciudad">
+            </div>
+            <div class="contact_input">
+            <label for="">State</label>
+            <select name="estado" id="id_estado">
+                <option value="0" selected disabled hidden>Choose your State</option>
+                <option value="Andalucí­a">Andalucí­a</option>
+                <option value="Aragón">Aragón</option>
+                <option value="Principado de Asturias">Principado de Asturias</option>
+                <option value="Islas Baleares">Islas Baleares</option>
+                <option value="País Vasco">Paí­s Vasco</option>
+                <option value="Islas Canarias">Islas Canarias</option>
+                <option value="Cantabria">Cantabria</option>
+                <option value="Castilla-La Mancha">Castilla-La Mancha</option>
+                <option value="Castilla y León">Castilla y León</option>
+                <option value="Cataluña">Cataluña</option>
+                <option value="Extremadura">Extremadura</option>
+                <option value="Galicia">Galicia</option>
+                <option value="Comunidad de Madrid">Comunidad de Madrid</option>
+                <option value="Región de Murcia">Región de Murcia</option>
+                <option value="Comunidad Foral de Navarra">Comunidad Foral de Navarra</option>
+                <option value="La Rioja">La Rioja</option>
+                <option value="Comunidad Valenciana">Comunidad Valenciana</option>
+                <option value="Ceuta">Ceuta</option>
+                <option value="Melilla">Melilla</option>
+            </select></div>
+        <div class="contact_input">
+            <label for="">Zip Code</label>
+            <input type="number" name="cp" id="id_cp" size="5">
+        </div>
+        </fieldset>
+        <hr>
+        <fieldset class="news radio checkbox">
+            <legend>Newsletter</legend>
+            <label>Select the newsletters you would like to recieve</label><br><br>
+            <input type="checkbox" name="news" id="HTML"> <label for="">HTML News</label> <br>
+            <input type="checkbox" name="news" id="CSS"> <label for="">CSS News </label> <br>
+            <input type="checkbox" name="news" id="JS"> <label for="">Javascript News</label> 
+            <br><br>
+            <label>Newsletter format</label>
+            <br>
+            <input type="radio" name="newFormat" id="id_newFormat1"> <label for="id_newFormat1"> HTML </label><br>
+            <input type="radio" name="newFormat" id="id_newFormat2"> <label for="id_newFormat2"> Plain text </label><br><br>
+            <label>Others topics you'd like to hear about</label><br><br>
+            <textarea name="topics" id="id_topics" cols="30" rows="10"></textarea>
+        </fieldset>
+        <button type="submit">Sign Up</button>
+        <button type="reset">Reset</button>
+    </form>
+    <footer>
+        <p>Copyright The Code Review</p>
+    </footer>
+</body>
+</html>
