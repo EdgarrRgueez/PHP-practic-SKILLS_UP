@@ -75,14 +75,14 @@
         <fieldset class="news radio checkbox">
             <legend>Newsletter</legend>
             <label>Select the newsletters you would like to recieve</label><br><br>
-            <input type="checkbox" name="news" id="HTML"> <label for="HTML">HTML News</label> <br>
-            <input type="checkbox" name="news" id="CSS"> <label for="CSS">CSS News </label> <br>
-            <input type="checkbox" name="news" id="JS"> <label for="JS">Javascript News</label> 
+            <input type="checkbox" name="news[]" id="HTML" value="HTML"> <label for="HTML">HTML News</label> <br>
+            <input type="checkbox" name="news[]" id="CSS" value="CSS"> <label for="CSS">CSS News </label> <br>
+            <input type="checkbox" name="news[]" id="JS" value="JS"> <label for="JS">Javascript News</label> 
             <br><br>
             <label>Newsletter format</label>
             <br>
-            <input type="radio" name="formato" id="id_formato1"> <label for="id_formato1"> HTML </label><br>
-            <input type="radio" name="formato" id="id_formato2"> <label for="id_formato2"> Plain text </label><br><br>
+            <input type="radio" name="formato" id="id_formato1" value="HTML"> <label for="id_formato1"> HTML </label><br>
+            <input type="radio" name="formato" id="id_formato2" value="Plain text"> <label for="id_formato2"> Plain text </label><br><br>
             <label>Others topics you'd like to hear about</label><br><br>
             <textarea name="topics" id="id_topics" cols="30" rows="10"></textarea>
         </fieldset>
