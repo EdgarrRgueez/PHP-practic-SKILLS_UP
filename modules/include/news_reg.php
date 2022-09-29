@@ -68,7 +68,7 @@
         } else{
             echo "Name no válido";
         }
-
+        // TO DO seguir con los if para comprobar que se validan
         }
     }
 ?>
