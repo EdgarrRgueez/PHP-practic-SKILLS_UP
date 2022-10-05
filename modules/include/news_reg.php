@@ -101,13 +101,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $news = limpiar_dato($_POST["news"]);
             } else{
                 $news = NULL;
-            }
+            } */
             
             if (isset($_POST["formato"])){
                 $formato = limpiar_dato($_POST["formato"]);
-            } else{
-                $formato = NULL;
-            } */
+            }
             
             if (isset($_POST["topics"])){
                 $topics = limpiar_dato($_POST["topics"]);
@@ -116,10 +114,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             // ============================================================= BORRAME
             
-            echo "<br><strong>Name: </strong>".$Nombre ."<br>";
+            echo "<br><strong>Nombre: </strong>".$Nombre ."<br>";
             echo "<br><strong>Email: </strong>".$correo ."<br>";
             echo "<br><strong>Teléfono: </strong>".$tlf ."<br>";
-            echo "<br><strong>Calle: </strong>".$$calle ."<br>";
+            echo "<br><strong>Calle: </strong>".$calle ."<br>";
             echo "<br><strong>Ciudad: </strong>".$ciudad ."<br>";
             echo "<br><strong>Estado: </strong>".$estado ."<br>";
             echo "<br><strong>CP: </strong>".$cp ."<br>";
