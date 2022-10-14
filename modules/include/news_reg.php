@@ -96,12 +96,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $cp = NULL;
             } 
             
-            /* VALIDACIÓN DEL NEWSLETTER PARA MÁS ADELANTE PORQUE NO SE LE PUEDE DAR VALOR NULL
-            if (isset($_POST["news"])){
-                $news = limpiar_dato($_POST["news"]);
-            } else{
-                $news = NULL;
-            } */
+            /* VALIDACIÓN DEL NEWSLETTER PARA MÁS ADELANTE PORQUE NO SE LE PUEDE DAR VALOR NULL */
+            $news = filter_input(
+                INPUT_POST,
+                'news',
+                FILTER_SANITIZE_SPECIAL_CHARS,
+                FILTER_REQUIRE_ARRAY
+            );
+            /* USAMOS EL IMPLODE PARA UNIR ELEMENTOS DE UN ARRAY EN UN STRING -> implode(string $separator, array $array) */
+            $string = implode(", ",$news);
             
             if (isset($_POST["formato"])){
                 $formato = limpiar_dato($_POST["formato"]);
@@ -121,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<br><strong>Ciudad: </strong>".$ciudad ."<br>";
             echo "<br><strong>Estado: </strong>".$estado ."<br>";
             echo "<br><strong>CP: </strong>".$cp ."<br>";
-            echo "<br><strong>Noticias: </strong>".$news ."<br>";
+            echo "<br><strong>Noticias: </strong>".$string ."<br>";
             echo "<br><strong>Formato: </strong>".$formato ."<br>";
             echo "<br><strong>Topics: </strong>".$topics ."<br>";
             
@@ -141,4 +144,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else{
     echo "No hemos recibido por el métedo POST";
 }
+
 ?>
