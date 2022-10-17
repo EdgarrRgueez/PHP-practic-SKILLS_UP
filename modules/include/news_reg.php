@@ -4,6 +4,7 @@ require "../require/config.php";
 // Definir variables  y dar values vacío ("")
 $Nombre = $correo = $tlf = $calle = $ciudad = $estado = $cp = $news = $formato = $topics = "";
 $Nombre_err = $correo_err = $tlf_err = false;
+$checkNewsletter;
 
 // Declarar la función para limpiar
 function limpiar_dato($data){
@@ -105,7 +106,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             );
             /* USAMOS EL IMPLODE PARA UNIR ELEMENTOS DE UN ARRAY EN UN STRING -> implode(string $separator, array $array) */
             $string = implode(", ",$news);
-            
+
+            $lenArray = count($news);  /* DEVUELVE LA LONGITUD DEL ARRAY count() */
+            echo "Antes del switch: " . $lenArray;
+            switch ($lenArray) {    /* PARA COMPROBAR QUE VALOR ESTÁ CHECK */
+                case 1:
+                    if ($news[0] == "HTML"){
+                        $checkNewsletter = 100;
+                    } elseif($news[0] == "CSS"){
+                        $checkNewsletter = 010;
+                    } else {
+                        $checkNewsletter = 001;
+                    }
+                    break;
+                case 2:
+                    if ($news[0] != "HTML") {
+                        $checkNewsletter = 011;
+                    } elseif ($news[0] != "CSS"){
+                        $checkNewsletter = 101;
+                    } else {
+                        $checkNewsletter = 110;
+                    }
+                    break;
+                case 3:
+                    $checkNewsletter = 111;
+                    break;
+                default:
+                    $checkNewsletter = 100;
+            }
+
+            echo "<br>Valor a devolver del array: " . $checkNewsletter;
+
             if (isset($_POST["formato"])){
                 $formato = limpiar_dato($_POST["formato"]);
             }
@@ -129,6 +160,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<br><strong>Topics: </strong>".$topics ."<br>";
             
             // ============================================================= BORRAME
+
+            // COMPROBAR QUE NO EXISTEN LOS DATOS QUE SE VAN A ENVIAR: NOMBRE, EMAIL Y TLF
+            SELECT fullname, email, phone FROM news_reg WHERE $Nombre="fullname", $correo="email", $tlf="phone";
+            // SI DEVUELVE ALGO
+            //INSERT DATOS A LA BASE DE DATOS
+            INSERT INTO fullname, email, phone, address, city, state, zipcode, newsletters, format_news, suggestion VALUES ($Nombre, $correo, $tlf, $calle, $ciudad, $estado, $cp, $string, $checkNewsletter, $topics);
+
         } else{
             if ($Nombre_err == true){
                 echo "La validación de Nombre ha fallado<br>";
