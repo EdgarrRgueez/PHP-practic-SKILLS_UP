@@ -112,27 +112,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             switch ($lenArray) {    /* PARA COMPROBAR QUE VALOR ESTÁ CHECK */
                 case 1:
                     if ($news[0] == "HTML"){
-                        $checkNewsletter = 100;
+                        $checkNewsletter = bindec('100');
                     } elseif($news[0] == "CSS"){
-                        $checkNewsletter = 010;
+                        $checkNewsletter = bindec('010');
                     } else {
-                        $checkNewsletter = 001;
+                        $checkNewsletter = bindec('001');
                     }
                     break;
                 case 2:
                     if ($news[0] != "HTML") {
-                        $checkNewsletter = 011;
-                    } elseif ($news[0] != "CSS"){
-                        $checkNewsletter = 101;
+                        $checkNewsletter = bindec('011');
+                    } elseif ($news[0] != "CSS" && $news[1] == "JS"){
+                        $checkNewsletter = bindec('101');
                     } else {
-                        $checkNewsletter = 110;
+                        $checkNewsletter = bindec('110');
                     }
                     break;
                 case 3:
-                    $checkNewsletter = 111;
+                    $checkNewsletter = bindec('111');
                     break;
                 default:
-                    $checkNewsletter = 100;
+                    $checkNewsletter = bindec('100');
             }
 
             echo "<br>Valor a devolver del array: " . $checkNewsletter;
@@ -155,17 +155,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<br><strong>Ciudad: </strong>".$ciudad ."<br>";
             echo "<br><strong>Estado: </strong>".$estado ."<br>";
             echo "<br><strong>CP: </strong>".$cp ."<br>";
-            echo "<br><strong>Noticias: </strong>".$string ."<br>";
+            echo "<br><strong>Noticias (Binario a la BBDD): </strong>".$checkNewsletter ."<br>";
             echo "<br><strong>Formato: </strong>".$formato ."<br>";
             echo "<br><strong>Topics: </strong>".$topics ."<br>";
             
             // ============================================================= BORRAME
 
-            // COMPROBAR QUE NO EXISTEN LOS DATOS QUE SE VAN A ENVIAR: NOMBRE, EMAIL Y TLF
-            SELECT fullname, email, phone FROM news_reg WHERE $Nombre="fullname", $correo="email", $tlf="phone";
-            // SI DEVUELVE ALGO
-            //INSERT DATOS A LA BASE DE DATOS
-            INSERT INTO fullname, email, phone, address, city, state, zipcode, newsletters, format_news, suggestion VALUES ($Nombre, $correo, $tlf, $calle, $ciudad, $estado, $cp, $string, $checkNewsletter, $topics);
+            // COMPROBAR QUE NO EXISTEN LOS DATOS QUE SE VAN A ENVIAR, ES DECIR, QUE NO ESTÉN DUPLICADOS: NOMBRE, EMAIL Y TLF
+            try{
+                $sql = "SELECT * FROM news_reg WHERE fullname = :fullname OR email = :email OR phone = :phone";
+
+                $stmt = $conn->prepare($sql);
+
+                $stmt->bindParam(':fullname', $Nombre, PDO::PARAM_STR);
+                $stmt->bindParam(':email', $correo, PDO::PARAM_STR);
+                $stmt->bindParam(':phone', $tlf, PDO::PARAM_STR);
+
+                $stmt->execute();
+                $resultado = $stmt->fetchAll();
+                echo "Resultado es: " . var_dump($resultado) . "<br>";
+                if ($resultado){
+                    echo "La información existe<br>";
+                } else { 
+                    //INSERT DATOS A LA BASE DE DATOS
+                    try{
+                        $sql = "INSERT INTO news_reg (fullname, email, phone, address, city, state, zipcode, newsletters, format_news, suggestion) VALUES (:fullname, :email, :phone, :address, :city, :state, :zipcode, :newsletters, :format_news, :suggestion)";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bindParam(':fullname', $Nombre, PDO::PARAM_STR);
+                        $stmt->bindParam(':email', $correo, PDO::PARAM_STR);
+                        $stmt->bindParam(':phone', $tlf, PDO::PARAM_STR);
+                        $stmt->bindParam(':address', $calle, PDO::PARAM_STR);
+                        $stmt->bindParam(':city', $ciudad, PDO::PARAM_STR);
+                        $stmt->bindParam(':state', $estado, PDO::PARAM_STR);
+                        $stmt->bindParam(':zipcode', $cp, PDO::PARAM_STR);
+                        $stmt->bindParam(':newsletters', $checkNewsletter, PDO::PARAM_INT);
+                        $stmt->bindParam(':format_news', $formato, PDO::PARAM_INT);
+                        $stmt->bindParam(':suggestion', $topics, PDO::PARAM_STR);
+
+                        $stmt->execute();
+                        echo "Nuevo registro creado correctamente.<br>";
+                        echo "Valor a ingresado decimal de 3bit: " . $checkNewsletter . "<br>";
+                    } catch (PDOException $e) {
+                        echo $sql . "<br>" . $e->getMessage();
+                    }
+                    $conn = null;
+                }
+            } catch (PDOException $e){
+                echo $sql . "<br>" . $e->getMessage();
+            }
 
         } else{
             if ($Nombre_err == true){
