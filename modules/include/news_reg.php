@@ -3,13 +3,14 @@ require "../require/config.php";
 
 // Definir variables  y dar values vacío ("")
 $Nombre = $correo = $tlf = $calle = $ciudad = $estado = $cp = $news = $formato = $topics = "";
+// Definir e inicializar variables para detectar fallos en las validaciones
 $Nombre_err = $correo_err = $tlf_err = false;
 $checkNewsletter;
 
 // Declarar la función para limpiar
 function limpiar_dato($data){
     $data = trim($data);  // Limpiar espacios delante y detrás
-    $data = stripslashes($data);  // Limpiar 
+    $data = stripslashes($data);  // Limpiar barras de un string
     $data = htmlspecialchars($data);  // Limpiar caracteres especiales
     return $data;
 }
