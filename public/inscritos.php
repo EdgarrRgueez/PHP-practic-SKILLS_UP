@@ -1,6 +1,6 @@
 <?php
 require "../modules/require/config.php";
-htmlspecialchars($SERVER['PHP_SELF']);
+htmlspecialchars($_SERVER['PHP_SELF']);
 $_SERVER['REQUEST_METHOD'] == null;
 ?>
 
@@ -17,8 +17,8 @@ $_SERVER['REQUEST_METHOD'] == null;
 </head>
 <body>
     <main>
-        <?php if ($SERVER['REQUEST_METHOD'] === 'GET') : ?>
-            <form action="<?php htmlspecialchars($SERVER['PHP_SELF']) ?>" method="POST">
+        <?php if ($_SERVER['REQUEST_METHOD'] === 'GET') : ?>
+            <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
                 <button type="submit" name="MostrarInscritos">Mostrar datos</button>
             </form>
         <?php else : ?>
