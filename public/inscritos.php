@@ -23,6 +23,7 @@ $_SERVER['REQUEST_METHOD'] == null;
             </form>
         <?php else : ?>
                 <?php
+                // HACER CONSULTA A LA BBDD PARA TRAER DATOS
                 $sql = "SELECT * FROM news_reg";
                 $stmt = $conn->prepare($sql);
                 $stmt -> execute();
@@ -61,7 +62,7 @@ $_SERVER['REQUEST_METHOD'] == null;
                 } else {
                     echo "<p> 0 results, no found data.</p><br>";
                 }
-                $conn = null;
+                $conn = null;  // CIERRA LA CONEXIÓN 
                 ?>
             <?php endif ?> 
     </main>
